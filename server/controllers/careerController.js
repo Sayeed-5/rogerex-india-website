@@ -1,0 +1,102 @@
+const { sendEmail } = require("../config/mailer");
+const { isValidEmail, isValidPhone, isFieldEmpty } = require("../middleware/validation");
+
+const submitCareer = async (req, res) => {
+  try {
+    // {
+//   "name": "John",
+//   "email": "john@gmail.com",
+//   "phone": "9876543210",
+//   "college": "ABC College",
+//   "role": "Frontend Intern",
+//   "coverLetter": "..."
+// }
+
+    const { name, email, phone, college, role, coverLetter } = req.body;
+
+    // Validate all required fields exist and are not empty
+    if (
+      isFieldEmpty(name) ||
+      isFieldEmpty(email) ||
+      isFieldEmpty(phone) ||
+      isFieldEmpty(college) ||
+      isFieldEmpty(role) ||
+      isFieldEmpty(coverLetter)
+    ) {
+      return res.status(400).json({
+        success: false,
+        message: "All fields are required.",
+      });
+    }
+
+    // Validate email format
+    if (!isValidEmail(email.trim())) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid email format.",
+      });
+    }
+
+    // Validate phone format
+    if (!isValidPhone(phone)) {
+      return res.status(400).json({
+        success: false,
+        message: "Invalid phone number.",
+      });
+    }
+
+    // Trim strings for safety
+    const trimmedData = {
+      name: name.trim(),
+      email: email.trim(),
+      phone: phone.trim(),
+      college: college.trim(),
+      role: role.trim(),
+      coverLetter: coverLetter.trim(),
+    };
+
+    // Prepare email content
+    const htmlContent = `
+      <h2>New Career Application</h2>
+      <p><strong>Applicant Name:</strong> ${trimmedData.name}</p>
+      <p><strong>Email:</strong> ${trimmedData.email}</p>
+      <p><strong>Phone:</strong> ${trimmedData.phone}</p>
+      <p><strong>College:</strong> ${trimmedData.college}</p>
+      <p><strong>Applied Role:</strong> ${trimmedData.role}</p>
+      <p><strong>Cover Letter:</strong></p>
+      <p>${trimmedData.coverLetter.replace(/\n/g, "<br>")}</p>
+    `;
+
+    // Send email via Nodemailer
+    const mailOptions = {
+      from: process.env.EMAIL_USER,
+      to: process.env.EMAIL_TO,
+      replyTo: trimmedData.email,
+      subject: `Career Application: ${trimmedData.role}`,
+      html: htmlContent,
+    };
+
+    // const emailResult = await sendEmail(mailOptions);
+
+    // if (!emailResult.success) {
+    //   return res.status(500).json({
+    //     success: false,
+    //     message: "Failed to submit application. Please try again later.",
+    //   });
+    // }
+
+    return res.status(200).json({
+      success: true,
+      message: "Application submitted successfully.",
+      htmlContent: htmlContent,
+    });
+  } catch (error) {
+    console.error("Career submission error:", error.message);
+    return res.status(500).json({
+      success: false,
+      message: "An error occurred. Please try again later.",
+    });
+  }
+};
+
+module.exports = { submitCareer };
