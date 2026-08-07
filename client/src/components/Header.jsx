@@ -40,8 +40,8 @@ const Header = () => {
             <Link className={getLinkClass('/')} to="/">Home</Link>
             <Link className={getLinkClass('/about')} to="/about">About</Link>
             <Link className={getLinkClass('/services')} to="/services">Services</Link>
-            {/* <Link className={getLinkClass('/portfolio')} to="/portfolio">Portfolio</Link>
-            <Link className={getLinkClass('/careers')} to="/careers">Careers</Link> */}
+            <Link className={getLinkClass('/portfolio')} to="/portfolio">Portfolio</Link>
+            <Link className={getLinkClass('/careers')} to="/careers">Careers</Link>
             <Link className={getLinkClass('/contact')} to="/contact">Contact</Link>
             <Link className="px-6 py-2 bg-primary text-on-primary rounded-[12px] font-body-md font-semibold transition-transform active:scale-95 hover:bg-primary/90 shadow-md" to="/contact">Get in Touch</Link>
           </div>
