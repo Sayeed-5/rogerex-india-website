@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Rocket, Eye, Circle, BadgeCheck, Lightbulb, Gavel, ArrowRight } from 'lucide-react';
+import { Rocket, Eye, BadgeCheck, Lightbulb, Gavel, ArrowRight, ArrowLeft, Globe, TrendingUp, Users, GraduationCap, ExternalLink } from 'lucide-react';
 import CallToAction from '../components/CallToAction';
 
 const About = () => {
@@ -85,7 +85,7 @@ const About = () => {
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {/*  Item 1  */}
               <div className="p-8 rounded-[20px] glass-card transition-all duration-300 hover:bg-soft-highlight/10">
-                <Circle className="w-6 h-6 text-current" />
+                <Globe className="w-6 h-6 text-primary" />
                 <h4 className="font-headline-md text-headline-md mb-3">Global Expertise</h4>
                 <p className="font-body-md text-body-md text-on-surface-variant">Serving clients across borders with a deep understanding of international tech standards and markets.</p>
               </div>
@@ -97,7 +97,7 @@ const About = () => {
               </div>
               {/*  Item 3  */}
               <div className="p-8 rounded-[20px] glass-card transition-all duration-300 hover:bg-soft-highlight/10">
-                <Circle className="w-6 h-6 text-current" />
+                <TrendingUp className="w-6 h-6 text-primary" />
                 <h4 className="font-headline-md text-headline-md mb-3">Agile Scale</h4>
                 <p className="font-body-md text-body-md text-on-surface-variant">Dynamic team structures that scale rapidly to meet the evolving demands of growing enterprises.</p>
               </div>
@@ -117,19 +117,19 @@ const About = () => {
                 <span className="font-body-md font-semibold text-on-surface group-hover:text-white transition-colors">Innovation</span>
               </div>
               <div className="flex flex-col items-center p-6 bg-white rounded-[20px] ambient-shadow group hover:bg-primary transition-all duration-300">
-                <Circle className="w-6 h-6 text-current" />
+                <BadgeCheck className="w-6 h-6 text-current" />
                 <span className="font-body-md font-semibold text-on-surface group-hover:text-white transition-colors">Quality</span>
               </div>
               <div className="flex flex-col items-center p-6 bg-white rounded-[20px] ambient-shadow group hover:bg-primary transition-all duration-300">
-                <Circle className="w-6 h-6 text-current" />
+                <Eye className="w-6 h-6 text-current" />
                 <span className="font-body-md font-semibold text-on-surface group-hover:text-white transition-colors">Transparency</span>
               </div>
               <div className="flex flex-col items-center p-6 bg-white rounded-[20px] ambient-shadow group hover:bg-primary transition-all duration-300">
-                <Circle className="w-6 h-6 text-current" />
+                <Users className="w-6 h-6 text-current" />
                 <span className="font-body-md font-semibold text-on-surface group-hover:text-white transition-colors">Customer Success</span>
               </div>
               <div className="flex flex-col items-center p-6 bg-white rounded-[20px] ambient-shadow group hover:bg-primary transition-all duration-300">
-                <Circle className="w-6 h-6 text-current" />
+                <GraduationCap className="w-6 h-6 text-current" />
                 <span className="font-body-md font-semibold text-on-surface group-hover:text-white transition-colors">Continuous Learning</span>
               </div>
               <div className="flex flex-col items-center p-6 bg-white rounded-[20px] ambient-shadow group hover:bg-primary transition-all duration-300">
@@ -148,7 +148,7 @@ const About = () => {
                 <p className="font-body-md text-body-md text-on-surface-variant">The minds behind Rogerex India, dedicated to transforming your vision into digital reality.</p>
               </div>
               <div className="flex gap-4">
-                <button className="w-12 h-12 rounded-full border border-outline flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all"><Circle className="w-6 h-6 text-current" /></button>
+                <button className="w-12 h-12 rounded-full border border-outline flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all"><ArrowLeft className="w-6 h-6 text-current" /></button>
                 <button className="w-12 h-12 rounded-full border border-outline flex items-center justify-center hover:bg-primary hover:text-white hover:border-primary transition-all"><ArrowRight className="w-6 h-6 text-current" /></button>
               </div>
             </div>
@@ -159,7 +159,7 @@ const About = () => {
                   <img className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A professional studio portrait of a technology executive, mid-40s, with a confident and friendly expression. The person is dressed in modern business casual attire. The background is a soft, blurred office interior with warm wooden accents and ivory lighting, maintaining the premium brand aesthetic of Rogerex India. High-quality editorial lighting." src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                     <div className="flex gap-4">
-                      <a className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-primary transition-colors" href="#"><Circle className="w-6 h-6 text-current" /></a>
+                      <a className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-primary transition-colors" href="#"><ExternalLink className="w-5 h-5 text-white" /></a>
                     </div>
                   </div>
                 </div>
@@ -172,7 +172,7 @@ const About = () => {
                   <img className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A cinematic portrait of a female creative director, late 30s, in a brightly lit studio environment. She wears a minimalist beige blazer. The lighting is soft and diffused, creating a luxurious and approachable feel. Behind her, subtle geometric patterns hint at digital design. The image uses soft ivory and copper highlights consistent with the UI design." src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                     <div className="flex gap-4">
-                      <a className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-primary transition-colors" href="#"><Circle className="w-6 h-6 text-current" /></a>
+                      <a className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-primary transition-colors" href="#"><ExternalLink className="w-5 h-5 text-white" /></a>
                     </div>
                   </div>
                 </div>
@@ -185,7 +185,7 @@ const About = () => {
                   <img className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A portrait of an AI solutions lead, early 40s, standing in front of a window with a city view of a tech hub. The lighting is golden hour, casting a warm glow that matches the ivory and copper palette of the website. The mood is one of quiet ambition and deep expertise. Sharp focus, professional photography style." src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                     <div className="flex gap-4">
-                      <a className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-primary transition-colors" href="#"><Circle className="w-6 h-6 text-current" /></a>
+                      <a className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-primary transition-colors" href="#"><ExternalLink className="w-5 h-5 text-white" /></a>
                     </div>
                   </div>
                 </div>
@@ -198,7 +198,7 @@ const About = () => {
                   <img className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110" data-alt="A professional photo of a operations director, 40s, in a clean, minimalist boardroom setting. The image is bright and airy with high-key lighting. The color palette is composed of soft whites, bone ivory, and subtle copper accents. The expression is professional and welcoming. Editorial style portrait." src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?auto=format&fit=crop&q=80&w=800" />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
                     <div className="flex gap-4">
-                      <a className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-primary transition-colors" href="#"><Circle className="w-6 h-6 text-current" /></a>
+                      <a className="w-10 h-10 rounded-full bg-white/20 backdrop-blur-md flex items-center justify-center hover:bg-primary transition-colors" href="#"><ExternalLink className="w-5 h-5 text-white" /></a>
                     </div>
                   </div>
                 </div>

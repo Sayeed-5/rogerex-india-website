@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { ArrowRight, Code, Circle, Cloud, Lightbulb, BadgeCheck, Eye, Users, Gavel, GraduationCap, Send } from 'lucide-react';
+import { ArrowRight, Code, Layers, Smartphone, Palette, Bot, Cloud, Lightbulb, BadgeCheck, Eye, Users, Gavel, GraduationCap, Send } from 'lucide-react';
 import CallToAction from '../components/CallToAction';
 import ServiceCard from '../components/ServiceCard';
 
@@ -83,28 +83,28 @@ const Home = () => {
 {/*  Full Stack Development  */}
 <ServiceCard 
   variant="home"
-  icon={<Circle className="w-6 h-6 text-current" />}
+  icon={<Layers className="w-6 h-6 text-current" />}
   title="Full Stack Development"
   description="End-to-end web applications built with modern frameworks to ensure seamless performance from frontend to backend."
 />
 {/*  Mobile App Development  */}
 <ServiceCard 
   variant="home"
-  icon={<Circle className="w-6 h-6 text-current" />}
+  icon={<Smartphone className="w-6 h-6 text-current" />}
   title="Mobile App Development"
   description="Intuitive, high-performance iOS and Android applications that keep your users engaged on every device."
 />
 {/*  UI/UX Design  */}
 <ServiceCard 
   variant="home"
-  icon={<Circle className="w-6 h-6 text-current" />}
+  icon={<Palette className="w-6 h-6 text-current" />}
   title="UI/UX Design"
   description="User-centric design systems that prioritize clarity, aesthetics, and effortless interaction across digital interfaces."
 />
 {/*  AI & Automation  */}
 <ServiceCard 
   variant="home"
-  icon={<Circle className="w-6 h-6 text-current" />}
+  icon={<Bot className="w-6 h-6 text-current" />}
   title="AI & Automation"
   description="Leveraging machine learning and RPA to automate manual tasks and unlock data-driven insights for your business."
 />

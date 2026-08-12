@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { Code, Circle, Cloud } from 'lucide-react';
+import { Code, Layers, Globe, Smartphone, Palette, Bot, Cloud, Plug, Briefcase, Wrench } from 'lucide-react';
 import PageHero from '../components/PageHero';
 import ServiceCard from '../components/ServiceCard';
 
@@ -28,31 +28,31 @@ const Services = () => {
 />
 {/*  Service 2: Full Stack Development  */}
 <ServiceCard 
-  icon={<Circle className="w-6 h-6 text-current" />}
+  icon={<Layers className="w-6 h-6 text-current" />}
   title="Full Stack Development"
   description="End-to-end development covering both front-end aesthetics and robust back-end architecture for seamless performance."
 />
 {/*  Service 3: Website Development  */}
 <ServiceCard 
-  icon={<Circle className="w-6 h-6 text-current" />}
+  icon={<Globe className="w-6 h-6 text-current" />}
   title="Website Development"
   description="Responsive, high-performance websites that blend cutting-edge design with powerful functionality to engage users."
 />
 {/*  Service 4: Mobile App Development  */}
 <ServiceCard 
-  icon={<Circle className="w-6 h-6 text-current" />}
+  icon={<Smartphone className="w-6 h-6 text-current" />}
   title="Mobile App Development"
   description="Native and cross-platform mobile applications that provide intuitive user experiences on iOS and Android devices."
 />
 {/*  Service 5: UI/UX Design  */}
 <ServiceCard 
-  icon={<Circle className="w-6 h-6 text-current" />}
+  icon={<Palette className="w-6 h-6 text-current" />}
   title="UI/UX Design"
   description="User-centric design strategies that prioritize usability and visual delight to create meaningful digital interactions."
 />
 {/*  Service 6: AI & Automation  */}
 <ServiceCard 
-  icon={<Circle className="w-6 h-6 text-current" />}
+  icon={<Bot className="w-6 h-6 text-current" />}
   title="AI & Automation"
   description="Intelligent systems and automated workflows that leverage machine learning to optimize productivity and data insights."
 />
@@ -64,20 +64,20 @@ const Services = () => {
 />
 {/*  Service 8: API Integration  */}
 <ServiceCard 
-  icon={<Circle className="w-6 h-6 text-current" />}
+  icon={<Plug className="w-6 h-6 text-current" />}
   title="API Integration"
   description="Connecting diverse platforms through robust APIs to ensure data synchronization and unified digital ecosystems."
 />
 {/*  Service 9: IT Consulting  */}
 <ServiceCard 
-  icon={<Circle className="w-6 h-6 text-current" />}
+  icon={<Briefcase className="w-6 h-6 text-current" />}
   title="IT Consulting"
   description="Strategic guidance on technology stacks, digital transformation, and future-ready IT roadmaps for growth."
 />
 {/*  Service 10: Maintenance & Support  */}
 <ServiceCard 
   className="lg:col-span-1"
-  icon={<Circle className="w-6 h-6 text-current" />}
+  icon={<Wrench className="w-6 h-6 text-current" />}
   title="Maintenance & Support"
   description="Continuous monitoring, updates, and dedicated technical support to keep your digital assets running at peak performance."
 />
