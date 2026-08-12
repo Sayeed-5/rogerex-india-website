@@ -27,7 +27,7 @@ const Footer = () => {
             </div>
           </div>
           {/* Quick Links */}
-          <div className="col-span-1">
+          {/* <div className="col-span-1">
             <h5 className="font-headline-md text-lg mb-6 dark:text-white">Solutions</h5>
             <ul className="flex flex-col gap-3">
               <li><Link className="text-on-surface-variant dark:text-gray-300 hover:text-primary transition-colors" to="/services">Software Dev</Link></li>
@@ -35,7 +35,7 @@ const Footer = () => {
               <li><Link className="text-on-surface-variant dark:text-gray-300 hover:text-primary transition-colors" to="/services">AI Strategy</Link></li>
               <li><Link className="text-on-surface-variant dark:text-gray-300 hover:text-primary transition-colors" to="/services">Product Design</Link></li>
             </ul>
-          </div>
+          </div> */}
           {/* Contact */}
           <div className="col-span-1">
             <h5 className="font-headline-md text-lg mb-6 dark:text-white">Contact</h5>
@@ -58,7 +58,7 @@ const Footer = () => {
               <li><Link className="text-on-surface-variant dark:text-gray-300 hover:text-primary transition-colors" to="#">Terms of Service</Link></li>
             </ul>
             <p className="text-sm text-text-muted dark:text-gray-400">
-              © 2024 Rogerex India. All rights reserved.
+              © 2026 Rogerex India. All rights reserved.
             </p>
           </div>
         </div>

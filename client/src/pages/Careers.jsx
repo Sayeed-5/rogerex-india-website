@@ -1,8 +1,79 @@
-import React from 'react';
+import React, { useState, useRef } from 'react';
 import { Link } from 'react-router-dom';
-import { Circle, Users, GraduationCap, MapPin } from 'lucide-react';
+import { Circle, Users, GraduationCap, MapPin, Send, FileText, UploadCloud } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 const Careers = () => {
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    college: '',
+    role: '',
+    coverLetter: ''
+  });
+  const [resumeFile, setResumeFile] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
+  const fileInputRef = useRef(null);
+
+  const handleChange = (e) => {
+    setFormData({ ...formData, [e.target.name]: e.target.value });
+  };
+
+  const handleFileChange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const allowed = ['application/pdf', 'application/msword', 'application/vnd.openxmlformats-officedocument.wordprocessingml.document'];
+    if (!allowed.includes(file.type)) {
+      toast.error('Only PDF, DOC, or DOCX files are allowed.');
+      return;
+    }
+    if (file.size > 10 * 1024 * 1024) {
+      toast.error('File size must be under 10MB.');
+      return;
+    }
+    setResumeFile(file);
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    if (!formData.name || !formData.email || !formData.phone || !formData.college || !formData.role || !formData.coverLetter) {
+      toast.error('All fields are required!');
+      return;
+    }
+    if (!resumeFile) {
+      toast.error('Please upload your resume.');
+      return;
+    }
+
+    // Use FormData to send file + text fields together
+    const payload = new FormData();
+    Object.entries(formData).forEach(([key, val]) => payload.append(key, val));
+    payload.append('resume', resumeFile);
+
+    setIsLoading(true);
+    try {
+      const response = await fetch('/api/careers', {
+        method: 'POST',
+        // Do NOT set Content-Type — browser sets multipart/form-data automatically
+        body: payload,
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success('Application submitted! We will review and get back to you.');
+        setFormData({ name: '', email: '', phone: '', college: '', role: '', coverLetter: '' });
+        setResumeFile(null);
+        if (fileInputRef.current) fileInputRef.current.value = '';
+      } else {
+        toast.error(data.message || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      toast.error('Network error. Please check your connection and try again.');
+    } finally {
+      setIsLoading(false);
+    }
+  };
   return (
     <>
       
@@ -162,6 +233,93 @@ const Careers = () => {
                             Apply Now
                         </Link>
 </div>
+</div>
+</div>
+</section>
+{/*  Application Form Section  */}
+<section className="py-section-padding-lg bg-background-bone" id="apply">
+<div className="max-w-3xl mx-auto px-8">
+<div className="text-center mb-12">
+<span className="font-label-caps text-label-caps text-primary mb-4 block">READY TO JOIN?</span>
+<h2 className="font-headline-lg text-headline-lg mb-4">Submit Your Application</h2>
+<p className="font-body-lg text-body-lg text-on-surface-variant">Fill out the form below and we'll review your application within 3-5 business days.</p>
+</div>
+<div className="bg-white rounded-[20px] p-8 md:p-10 ambient-shadow border border-outline-variant/10">
+<form className="space-y-6" onSubmit={handleSubmit}>
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div className="flex flex-col gap-2">
+<label className="font-label-caps text-label-caps text-on-surface-variant">FULL NAME</label>
+<input name="name" value={formData.name} onChange={handleChange} className="h-[56px] px-6 rounded-xl bg-background-bone border-none focus:ring-2 focus:ring-primary/20 text-on-surface font-body-md placeholder:text-text-muted" placeholder="John Doe" type="text"/>
+</div>
+<div className="flex flex-col gap-2">
+<label className="font-label-caps text-label-caps text-on-surface-variant">EMAIL ADDRESS</label>
+<input name="email" value={formData.email} onChange={handleChange} className="h-[56px] px-6 rounded-xl bg-background-bone border-none focus:ring-2 focus:ring-primary/20 text-on-surface font-body-md placeholder:text-text-muted" placeholder="john@example.com" type="email"/>
+</div>
+</div>
+<div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div className="flex flex-col gap-2">
+<label className="font-label-caps text-label-caps text-on-surface-variant">PHONE NUMBER</label>
+<input name="phone" value={formData.phone} onChange={handleChange} className="h-[56px] px-6 rounded-xl bg-background-bone border-none focus:ring-2 focus:ring-primary/20 text-on-surface font-body-md placeholder:text-text-muted" placeholder="+91 98765 43210" type="tel"/>
+</div>
+<div className="flex flex-col gap-2">
+<label className="font-label-caps text-label-caps text-on-surface-variant">COLLEGE / UNIVERSITY</label>
+<input name="college" value={formData.college} onChange={handleChange} className="h-[56px] px-6 rounded-xl bg-background-bone border-none focus:ring-2 focus:ring-primary/20 text-on-surface font-body-md placeholder:text-text-muted" placeholder="ABC College, Bangalore" type="text"/>
+</div>
+</div>
+<div className="flex flex-col gap-2">
+<label className="font-label-caps text-label-caps text-on-surface-variant">APPLYING FOR ROLE</label>
+<select name="role" value={formData.role} onChange={handleChange} className="h-[56px] px-6 rounded-xl bg-background-bone border-none focus:ring-2 focus:ring-primary/20 text-on-surface font-body-md">
+<option value="">Select a role...</option>
+<option value="Frontend Developer">Frontend Developer</option>
+<option value="UI Designer">UI Designer</option>
+<option value="Backend Engineer">Backend Engineer</option>
+<option value="Intern">Intern</option>
+</select>
+</div>
+<div className="flex flex-col gap-2">
+<label className="font-label-caps text-label-caps text-on-surface-variant">RESUME / CV</label>
+{/* Hidden real file input */}
+<input
+  ref={fileInputRef}
+  id="resume-upload"
+  type="file"
+  name="resume"
+  accept=".pdf,.doc,.docx"
+  className="hidden"
+  onChange={handleFileChange}
+/>
+{/* Clickable styled upload area */}
+<div
+  onClick={() => fileInputRef.current?.click()}
+  className={`flex items-center gap-4 h-[64px] px-6 rounded-xl cursor-pointer transition-all duration-200 border-2 border-dashed
+    ${resumeFile
+      ? 'bg-primary/5 border-primary/40'
+      : 'bg-background-bone border-outline-variant/30 hover:border-primary/40 hover:bg-primary/5'
+    }`}
+>
+  {resumeFile ? (
+    <FileText className="w-6 h-6 text-primary shrink-0" />
+  ) : (
+    <UploadCloud className="w-6 h-6 text-on-surface-variant shrink-0" />
+  )}
+  <span className={`font-body-md truncate ${resumeFile ? 'text-primary font-semibold' : 'text-text-muted'}`}>
+    {resumeFile ? resumeFile.name : 'Click to upload PDF, DOC or DOCX (max 10MB)'}
+  </span>
+</div>
+</div>
+<div className="flex flex-col gap-2">
+<label className="font-label-caps text-label-caps text-on-surface-variant">COVER LETTER / WHY US?</label>
+<textarea name="coverLetter" value={formData.coverLetter} onChange={handleChange} className="p-6 rounded-xl bg-background-bone border-none focus:ring-2 focus:ring-primary/20 text-on-surface font-body-md placeholder:text-text-muted resize-none" placeholder="Tell us about yourself and why you want to join Rogerex..." rows="6"></textarea>
+</div>
+<button
+  className="w-full bg-primary text-on-primary py-4 rounded-xl font-body-lg font-bold hover:bg-primary/90 transition-all duration-300 flex items-center justify-center gap-2 disabled:opacity-60 disabled:cursor-not-allowed"
+  type="submit"
+  disabled={isLoading}
+>
+  {isLoading ? 'Submitting...' : 'Submit Application'}
+  {!isLoading && <Send className="w-6 h-6 text-current" />}
+</button>
+</form>
 </div>
 </div>
 </section>

@@ -3,18 +3,9 @@ const { isValidEmail, isValidPhone, isFieldEmpty } = require("../middleware/vali
 
 const submitCareer = async (req, res) => {
   try {
-    // {
-//   "name": "John",
-//   "email": "john@gmail.com",
-//   "phone": "9876543210",
-//   "college": "ABC College",
-//   "role": "Frontend Intern",
-//   "coverLetter": "..."
-// }
-
     const { name, email, phone, college, role, coverLetter } = req.body;
 
-    // Validate all required fields exist and are not empty
+    // Validate all required text fields
     if (
       isFieldEmpty(name) ||
       isFieldEmpty(email) ||
@@ -45,6 +36,14 @@ const submitCareer = async (req, res) => {
       });
     }
 
+    // Validate resume file
+    if (!req.file) {
+      return res.status(400).json({
+        success: false,
+        message: "Resume file is required. Please upload a PDF or Word document.",
+      });
+    }
+
     // Trim strings for safety
     const trimmedData = {
       name: name.trim(),
@@ -55,9 +54,9 @@ const submitCareer = async (req, res) => {
       coverLetter: coverLetter.trim(),
     };
 
-    // Prepare email content
+    // Prepare email HTML content
     const htmlContent = `
-      <h2>New Career Application</h2>
+      <h2 style="color:#333;">New Career Application</h2>
       <p><strong>Applicant Name:</strong> ${trimmedData.name}</p>
       <p><strong>Email:</strong> ${trimmedData.email}</p>
       <p><strong>Phone:</strong> ${trimmedData.phone}</p>
@@ -65,30 +64,38 @@ const submitCareer = async (req, res) => {
       <p><strong>Applied Role:</strong> ${trimmedData.role}</p>
       <p><strong>Cover Letter:</strong></p>
       <p>${trimmedData.coverLetter.replace(/\n/g, "<br>")}</p>
+      <hr/>
+      <p style="color:#888; font-size:12px;">Resume is attached to this email.</p>
     `;
 
-    // Send email via Nodemailer
+    // Build mail options with resume attached from memory buffer
     const mailOptions = {
       from: process.env.EMAIL_USER,
       to: process.env.EMAIL_TO,
       replyTo: trimmedData.email,
-      subject: `Career Application: ${trimmedData.role}`,
+      subject: `Career Application: ${trimmedData.role} — ${trimmedData.name}`,
       html: htmlContent,
+      attachments: [
+        {
+          filename: req.file.originalname,
+          content: req.file.buffer,
+          contentType: req.file.mimetype,
+        },
+      ],
     };
 
-    // const emailResult = await sendEmail(mailOptions);
+    const emailResult = await sendEmail(mailOptions);
 
-    // if (!emailResult.success) {
-    //   return res.status(500).json({
-    //     success: false,
-    //     message: "Failed to submit application. Please try again later.",
-    //   });
-    // }
+    if (!emailResult.success) {
+      return res.status(500).json({
+        success: false,
+        message: "Failed to submit application. Please try again later.",
+      });
+    }
 
     return res.status(200).json({
       success: true,
       message: "Application submitted successfully.",
-      htmlContent: htmlContent,
     });
   } catch (error) {
     console.error("Career submission error:", error.message);
@@ -99,4 +106,4 @@ const submitCareer = async (req, res) => {
   }
 };
 
-module.exports = { submitCareer };
+module.exports = { submitCareer };

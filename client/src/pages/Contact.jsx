@@ -6,22 +6,43 @@ const Contact = () => {
   const [formData, setFormData] = useState({
     name: '',
     email: '',
+    phone: '',
     subject: '',
     message: ''
   });
+  const [isLoading, setIsLoading] = useState(false);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!formData.name || !formData.email || !formData.subject || !formData.message) {
+    if (!formData.name || !formData.email || !formData.phone || !formData.subject || !formData.message) {
       toast.error('All fields are required!');
       return;
     }
-    toast.success('Your message has been sent successfully!');
-    setFormData({ name: '', email: '', subject: '', message: '' });
+
+    setIsLoading(true);
+    try {
+      const response = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify(formData),
+      });
+      const data = await response.json();
+
+      if (data.success) {
+        toast.success('Message sent successfully! We will get back to you soon.');
+        setFormData({ name: '', email: '', phone: '', subject: '', message: '' });
+      } else {
+        toast.error(data.message || 'Something went wrong. Please try again.');
+      }
+    } catch (err) {
+      toast.error('Network error. Please check your connection and try again.');
+    } finally {
+      setIsLoading(false);
+    }
   };
 
   return (
@@ -55,6 +76,10 @@ const Contact = () => {
 </div>
 </div>
 <div className="flex flex-col gap-2">
+<label className="font-label-caps text-label-caps text-on-surface-variant">PHONE NUMBER</label>
+<input name="phone" value={formData.phone} onChange={handleChange} className="h-[56px] px-6 rounded-xl bg-background-bone border-none focus:ring-2 focus:ring-primary/20 text-on-surface font-body-md placeholder:text-text-muted" placeholder="+91 98765 43210" type="tel"/>
+</div>
+<div className="flex flex-col gap-2">
 <label className="font-label-caps text-label-caps text-on-surface-variant">SUBJECT</label>
 <input name="subject" value={formData.subject} onChange={handleChange} className="h-[56px] px-6 rounded-xl bg-background-bone border-none focus:ring-2 focus:ring-primary/20 text-on-surface font-body-md placeholder:text-text-muted" placeholder="Inquiry about custom development" type="text"/>
 </div>
@@ -62,9 +87,13 @@ const Contact = () => {
 <label className="font-label-caps text-label-caps text-on-surface-variant">YOUR MESSAGE</label>
 <textarea name="message" value={formData.message} onChange={handleChange} className="p-6 rounded-xl bg-background-bone border-none focus:ring-2 focus:ring-primary/20 text-on-surface font-body-md placeholder:text-text-muted resize-none" placeholder="Tell us about your project or inquiry..." rows="5"></textarea>
 </div>
-<button className="w-full bg-primary text-on-primary py-4 rounded-xl font-body-lg font-bold hover:bg-primary/90 transition-all duration-300 flex items-center justify-center gap-2 group" type="submit">
-                            Send Message
-                            <Send className="w-6 h-6 text-current" />
+<button
+  className="w-full bg-primary text-on-primary py-4 rounded-xl font-body-lg font-bold hover:bg-primary/90 transition-all duration-300 flex items-center justify-center gap-2 group disabled:opacity-60 disabled:cursor-not-allowed"
+  type="submit"
+  disabled={isLoading}
+>
+  {isLoading ? 'Sending...' : 'Send Message'}
+  {!isLoading && <Send className="w-6 h-6 text-current" />}
 </button>
 </form>
 </div>
